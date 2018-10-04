@@ -124,7 +124,7 @@ namespace AgainUWP
             }
         }
 
-        private void Do_Submit(object sender, RoutedEventArgs e)
+        private async void Do_Submit(object sender, RoutedEventArgs e)
         {
             // validate data.
             this.currentMember.firtsName = this.FirstName.Text;
@@ -140,8 +140,10 @@ namespace AgainUWP
 
             HttpClient httpClient = new HttpClient();
             var content = new StringContent(jsonMember, Encoding.UTF8, "application/json");
-            var result = httpClient.PostAsync("https://1-dot-backup-server-002.appspot.com/member/register", content).Result;
-            Debug.WriteLine(jsonMember);
+            //var result = httpClient.PostAsync("https://1-dot-backup-server-002.appspot.com/member/register", content).Result.Content.ReadAsStringAsync();
+            var response = httpClient.PostAsync("https://1-dot-backup-server-002.appspot.com/member/register", content);
+            var contents = await response.Result.Content.ReadAsStringAsync();
+            Debug.WriteLine(contents);           
         }
 
 

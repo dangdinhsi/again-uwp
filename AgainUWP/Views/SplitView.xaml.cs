@@ -23,6 +23,7 @@ namespace AgainUWP.Views
     public sealed partial class SplitView : Page
     {
         private string CurrentTag = "";
+        public static long currentMemberId = 1538626293330;
         public SplitView()
         {
             this.InitializeComponent();
@@ -37,7 +38,7 @@ namespace AgainUWP.Views
             switch (radio.Tag.ToString()) {
                 case "MyAccount":
                     CurrentTag = "MyAccount";
-                    this.MyFrame.Navigate(typeof(Views.GridLayout));
+                    this.MyFrame.Navigate(typeof(Views.PersonalInformation));
                     break;
                 case "Register":
                     CurrentTag = "Register";

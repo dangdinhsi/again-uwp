@@ -110,6 +110,9 @@
     <Compile Include="Views\GridLayout.xaml.cs">
       <DependentUpon>GridLayout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PersonalInformation.xaml.cs">
+      <DependentUpon>PersonalInformation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SplitView.xaml.cs">
       <DependentUpon>SplitView.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\GridLayout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PersonalInformation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
