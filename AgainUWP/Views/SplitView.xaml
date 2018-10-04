@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="AgainUWP.Views.SplitView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AgainUWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid>
+        <SplitView DisplayMode="CompactInline" IsPaneOpen="True" x:Name="SplitVia" PaneBackground="Transparent">
+            <SplitView.Pane>
+                <StackPanel Margin="12, 20, 0, 0">
+                    <RadioButton Margin="0, 0, 0, 20" Style="{ThemeResource TextBlockButtonStyle}" Tag="MyAccount" HorizontalAlignment="Left" Click="Menu_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="ContactInfo" Margin="0, 0, 15, 0"/>
+                            <TextBlock Text="My Account"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Margin="0, 0, 0, 20" Style="{ThemeResource TextBlockButtonStyle}" Tag="Register" HorizontalAlignment="Left" Click="Menu_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="AddFriend" Margin="0, 0 , 15, 0"/>
+                            <TextBlock Text="Register"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Margin="0, 0, 0, 20" Style="{ThemeResource TextBlockButtonStyle}" Tag="AnotherPage" HorizontalAlignment="Left" Click="Menu_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Admin" Margin="0, 0 , 15, 0"/>
+                            <TextBlock Text="Another Page"/>
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame x:Name="MyFrame"/>
+            </SplitView.Content>
+        </SplitView>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Width="40" Height="40" Click="Button_Click">
+            <StackPanel>
+                <Rectangle Width="15" Height="2" Margin="2" Fill="White"/>
+                <Rectangle Width="15" Height="2" Margin="2" Fill="White"/>
+                <Rectangle Width="15" Height="2" Margin="2" Fill="White"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Page>
