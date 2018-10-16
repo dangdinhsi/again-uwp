@@ -23,6 +23,7 @@ using System.Net.Http;
 using System.Text;
 using System.Net;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -33,7 +34,6 @@ namespace AgainUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private static string API_GET_UPLOAD_URL = "https://1-dot-backup-server-002.appspot.com/get-upload-token";
         private string currentUploadUrl;
         private Member currentMember;
         
@@ -59,7 +59,7 @@ namespace AgainUWP
                 return;
             }
             HttpClient httpClient = new HttpClient();
-            currentUploadUrl = await httpClient.GetStringAsync(API_GET_UPLOAD_URL);
+            currentUploadUrl = await httpClient.GetStringAsync(Services.ServiceUrl.GET_UPLOAD_URL);
             Debug.WriteLine("Upload url: " + currentUploadUrl);
             HttpUploadFile(currentUploadUrl, "myFile", "image/png");
         }
@@ -126,6 +126,14 @@ namespace AgainUWP
 
         private async void Do_Submit(object sender, RoutedEventArgs e)
         {
+            LoadingIndicator.IsActive = true;
+            LoadingIndicator.Visibility = Visibility.Visible;
+            var result = await Process_Register();
+            //LoadingIndicator.IsActive = false;
+        }
+
+        private async Task<String> Process_Register() {
+            
             // validate data.
             this.currentMember.firtsName = this.FirstName.Text;
             this.currentMember.lastName = this.LastName.Text;
@@ -135,15 +143,35 @@ namespace AgainUWP
             this.currentMember.phone = this.Phone.Text;
             this.currentMember.email = this.Email.Text;
             this.currentMember.password = this.Password.Password;
-           
+
             string jsonMember = JsonConvert.SerializeObject(this.currentMember);
 
             HttpClient httpClient = new HttpClient();
             var content = new StringContent(jsonMember, Encoding.UTF8, "application/json");
             //var result = httpClient.PostAsync("https://1-dot-backup-server-002.appspot.com/member/register", content).Result.Content.ReadAsStringAsync();
-            var response = httpClient.PostAsync("https://1-dot-backup-server-002.appspot.com/member/register", content);
+            var response = httpClient.PostAsync(Services.ServiceUrl.MEMBER_REGISTER, content);
             var contents = await response.Result.Content.ReadAsStringAsync();
-            Debug.WriteLine(contents);           
+            if (response.Result.StatusCode == HttpStatusCode.Created)
+            {
+                // success
+            }
+            else
+            {
+                ErrorResponse errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(contents);
+                if (errorResponse.error.Count > 0) {
+                    foreach (var key in errorResponse.error.Keys) {
+                        var objectByKey = this.FindName(key);
+                        var value = errorResponse.error[key];
+                        if (objectByKey != null)
+                        {
+                            TextBlock textBlock = objectByKey as TextBlock;
+                            textBlock.Text = "* " + value;
+                            textBlock.Visibility = Visibility.Visible;
+                        }                    
+                    }
+                }                
+            }
+            return "";
         }
 
 

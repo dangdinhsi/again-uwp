@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="AgainUWP.Views.FileHandleDemo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AgainUWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel Margin="10, 0, 0, 0">
+        <TextBox x:Name="FileContent" Header="File Content" Width="200" Margin="0, 0, 0, 20" HorizontalAlignment="Left"/>
+        <TextBox x:Name="FileName" Header="File Name" Width="150" Margin="0, 0, 0, 20" HorizontalAlignment="Left"/>
+        <Button x:Name="BtnSave" Content="Save File" Margin="0, 0, 0, 20" Click="BtnSave_Click"/>
+        <Button x:Name="BtnLoad" Content="Load File" Margin="0, 0, 0, 20" Click="BtnLoad_Click"/>
+    </StackPanel>
+</Page>
